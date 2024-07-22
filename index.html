@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+    <title>Contact Us - Accessible Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-color: #e6f3ef;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .contact-form {
+            background-color: #ffffff;
+            border-radius: 10px;
+            padding: 40px;
+            width: 100%;
+            max-width: 500px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #0c6e54;
+            box-shadow: 0 0 0 2px rgba(12, 110, 84, 0.2);
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .radio-option {
+            flex: 1;
+            position: relative;
+        }
+
+        .radio-option input[type="radio"] {
+            position: absolute;
+            opacity: 0;
+        }
+
+        .radio-option label {
+            display: block;
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            background-color: #e6f3ef;
+            border-color: #0c6e54;
+            color: #0c6e54;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #0c6e54;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #095a44;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .attribution { font-size: 11px; text-align: center; }
+        .attribution a { color: hsl(228, 45%, 44%); }
+    </style>
+</head>
+<body>
+    <div class="contact-form">
+        <h1>Contact Us</h1>
+        <form id="contactForm" novalidate>
+            <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required aria-required="true">
+                <div class="error-message" id="firstNameError" role="alert"></div>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" required aria-required="true">
+                <div class="error-message" id="lastNameError" role="alert"></div>
+            </div>
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required aria-required="true">
+                <div class="error-message" id="emailError" role="alert"></div>
+            </div>
+            <div class="form-group">
+                <label>Query Type *</label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="generalEnquiry" name="queryType" value="General Enquiry" required aria-required="true">
+                        <label for="generalEnquiry">General Enquiry</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="supportRequest" name="queryType" value="Support Request">
+                        <label for="supportRequest">Support Request</label>
+                    </div>
+                </div>
+                <div class="error-message" id="queryTypeError" role="alert"></div>
+            </div>
+            <div class="form-group">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" required aria-required="true"></textarea>
+                <div class="error-message" id="messageError" role="alert"></div>
+            </div>
+            <div class="checkbox-group">
+                <input type="checkbox" id="consent" name="consent" required aria-required="true">
+                <label for="consent">I consent to being contacted by the team *</label>
+            </div>
+            <div class="error-message" id="consentError" role="alert"></div>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <div id="successMessage" class="success-message" role="alert" aria-live="polite">
+        Your message has been sent successfully!
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('successMessage');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (validateForm()) {
+                    // Simulate form submission
+                    setTimeout(() => {
+                        showSuccessMessage();
+                        form.reset();
+                    }, 1000);
+                }
+            });
+
+            function validateForm() {
+                let isValid = true;
+                const firstName = document.getElementById('firstName');
+                const lastName = document.getElementById('lastName');
+                const email = document.getElementById('email');
+                const queryType = document.querySelector('input[name="queryType"]:checked');
+                const message = document.getElementById('message');
+                const consent = document.getElementById('consent');
+
+                isValid = validateField(firstName, 'firstNameError', 'First Name is required') && isValid;
+                isValid = validateField(lastName, 'lastNameError', 'Last Name is required') && isValid;
+                isValid = validateEmail(email, 'emailError') && isValid;
+                isValid = validateRadio(queryType, 'queryTypeError', 'Please select a query type') && isValid;
+                isValid = validateField(message, 'messageError', 'Message is required') && isValid;
+                isValid = validateCheckbox(consent, 'consentError', 'You must consent to be contacted') && isValid;
+
+                return isValid;
+            }
+
+            function validateField(field, errorId, errorMessage) {
+                const errorElement = document.getElementById(errorId);
+                if (field.value.trim() === '') {
+                    showError(field, errorElement, errorMessage);
+                    return false;
+                } else {
+                    clearError(field, errorElement);
+                    return true;
+                }
+            }
+
+            function validateEmail(field, errorId) {
+                const errorElement = document.getElementById(errorId);
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(field.value.trim())) {
+                    showError(field, errorElement, 'Please enter a valid email address');
+                    return false;
+                } else {
+                    clearError(field, errorElement);
+                    return true;
+                }
+            }
+
+            function validateRadio(field, errorId, errorMessage) {
+                const errorElement = document.getElementById(errorId);
+                if (!field) {
+                    showError(null, errorElement, errorMessage);
+                    return false;
+                } else {
+                    clearError(null, errorElement);
+                    return true;
+                }
+            }
+
+            function validateCheckbox(field, errorId, errorMessage) {
+                const errorElement = document.getElementById(errorId);
+                if (!field.checked) {
+                    showError(field, errorElement, errorMessage);
+                    return false;
+                } else {
+                    clearError(field, errorElement);
+                    return true;
+                }
+            }
+
+            function showError(field, errorElement, errorMessage) {
+                errorElement.textContent = errorMessage;
+                if (field) {
+                    field.setAttribute('aria-invalid', 'true');
+                    field.setAttribute('aria-describedby', errorElement.id);
+                }
+            }
+
+            function clearError(field, errorElement) {
+                errorElement.textContent = '';
+                if (field) {
+                    field.removeAttribute('aria-invalid');
+                    field.removeAttribute('aria-describedby');
+                }
+            }
+
+            function showSuccessMessage() {
+                successMessage.classList.add('show');
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+            }
+        });
+    </script>
+    <div class="attribution">
+        Challenge by <a href="https://www.frontendmentor.io?ref=challenge">Frontend Mentor</a>. 
+        Coded by <a href="https://github.com/Hackerbot24">Hackerbot24</a>.
+    </div>
+</body>
+</html>
